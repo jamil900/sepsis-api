@@ -35,7 +35,7 @@ Proses eksplorasi data, preprocessing, training model, dan pembuatan ensemble di
 
 Notebook ini mencakup:
 
-* Data preprocessing & feature selection
+* Data preprocessing
 * Training Random Forest, SVC, dan Naive Bayes
 * Evaluasi performa model
 * Perhitungan bobot ensemble
