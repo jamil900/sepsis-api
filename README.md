@@ -1,51 +1,50 @@
-# Sepsis Risk Prediction API & Streamlit UI
+# Sepsis Risk Prediction System (FastAPI + Streamlit)
 
-Proyek ini menyediakan sistem prediksi risiko sepsis berbasis machine learning yang terdiri dari:
+Proyek ini merupakan implementasi end-to-end machine learning deployment untuk prediksi risiko sepsis dalam 24 jam menggunakan model ensemble.
 
-* **FastAPI backend** untuk layanan prediksi model
-* **Streamlit frontend** sebagai antarmuka pengguna
-* Model ensemble tersimpan dalam file artefak `.pkl`
-* Notebook pemodelan tersedia di Google Colab
+Sistem terdiri dari dua komponen terpisah:
+
+* 🔹 **FastAPI Service** → backend inference model
+* 🔹 **Streamlit App** → antarmuka pengguna (frontend)
+* 🔹 Notebook training tersedia di Google Colab
 
 ---
 
-## 📁 Struktur Folder
+# 📁 Struktur Folder Proyek
 
-```
+```text
 .
-├── Dockerfile
-├── requirements.txt
-├── scaler.pkl
-├── rf_model.pkl
-├── svc_model.pkl
-├── nb_model.pkl
-├── ensemble_weights.pkl
-├── app.py                  # FastAPI backend (endpoint prediksi)
-└── src/
-    └── streamlit_app.py    # Streamlit frontend UI
+├── FastApi/
+│   ├── Dockerfile
+│   ├── app.py
+│   ├── ensemble_weights.pkl
+│   ├── nb_model.pkl
+│   ├── rf_model.pkl
+│   ├── svc_model.pkl
+│   ├── scaler.pkl
+│   └── requirements.txt
+│
+├── Streamlit/
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   ├── README.md
+│   └── src/
+│       └── streamlit_app.py
 ```
 
 ---
 
-## 🧪 Notebook Pemodelan (Training Model)
+# 🧪 Notebook Pemodelan
 
-Proses eksplorasi data, preprocessing, training model, dan pembuatan ensemble dilakukan di Google Colab:
+Proses training model, preprocessing, evaluasi, dan pembuatan ensemble dilakukan di Google Colab:
 
 🔗 https://colab.research.google.com/drive/1X34Fsj9HA3cQZk7O871qBqjnQ5kEmJid?usp=sharing
 
-Notebook ini mencakup:
-
-* Data preprocessing
-* Training Random Forest, SVC, dan Naive Bayes
-* Evaluasi performa model
-* Perhitungan bobot ensemble
-* Export artefak model `.pkl`
-
 ---
 
-## 🚀 Backend API (FastAPI)
+# 🚀 Backend API (FastAPI)
 
-API menyediakan endpoint prediksi risiko sepsis.
+API digunakan untuk memproses data pasien dan menghasilkan prediksi risiko sepsis.
 
 ### 🔗 Dokumentasi API
 
@@ -53,7 +52,7 @@ https://jamils-sepsis-fastapi.hf.space/docs
 
 ### Endpoint Prediksi
 
-```
+```text
 POST /predict
 ```
 
@@ -82,14 +81,15 @@ POST /predict
 
 Keterangan:
 
-* `sepsis_risk_prediction` → 1 = risiko tinggi, 0 = risiko rendah
-* `risk_probability` → probabilitas model terhadap risiko sepsis
+* `1` → Risiko tinggi sepsis
+* `0` → Risiko rendah sepsis
+* `risk_probability` → probabilitas model ensemble
 
 ---
 
-## 🖥️ Aplikasi Web Streamlit
+# 🖥️ Frontend Streamlit
 
-Aplikasi frontend yang sudah dideploy dapat diakses di:
+Aplikasi web yang sudah dideploy dapat diakses di:
 
 🔗 https://huggingface.co/spaces/jamils/sepsis_app_detection
 
@@ -101,53 +101,53 @@ Fitur aplikasi:
 
 ---
 
-## ⚙️ Menjalankan Secara Lokal
+# ⚙️ Menjalankan Secara Lokal
 
-### 1. Install dependencies
+## Jalankan Backend
 
-```
+```bash
+cd FastApi
 pip install -r requirements.txt
-```
-
-### 2. Jalankan FastAPI
-
-```
 uvicorn app:app --reload --port 8000
 ```
 
-Docs lokal:
+Akses dokumentasi lokal:
 
 ```
 http://localhost:8000/docs
 ```
 
-### 3. Jalankan Streamlit
+---
 
-```
+## Jalankan Frontend
+
+```bash
+cd Streamlit
+pip install -r requirements.txt
 streamlit run src/streamlit_app.py
 ```
 
 ---
 
-## 🧠 Model Ensemble
+# 🧠 Model Ensemble
 
-Model prediksi menggunakan kombinasi:
+Sistem menggunakan kombinasi model:
 
 * Random Forest
 * Support Vector Classifier
 * Naive Bayes
 
-Prediksi akhir dihitung menggunakan **weighted probability averaging** untuk meningkatkan stabilitas dan performa model.
+Prediksi akhir dihitung menggunakan **weighted probability averaging**.
 
 ---
 
-## 🎯 Tujuan Proyek
+# 🎯 Tujuan Proyek
 
-Proyek ini menunjukkan implementasi end-to-end machine learning deployment meliputi:
+Proyek ini dibuat untuk menunjukkan implementasi lengkap machine learning deployment meliputi:
 
 * Eksplorasi & training model di notebook
-* Penyimpanan artefak model
-* Deployment API untuk inference
+* Export artefak model
+* Deployment API inference
 * Integrasi frontend interaktif
 * Arsitektur backend–frontend terpisah
 
