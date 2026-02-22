@@ -15,7 +15,7 @@ with col1:
     heart_rate = st.number_input("Heart Rate (bpm)", min_value=0.0, value=90.0)
     respiratory_rate = st.number_input("Respiratory Rate (breaths/min)", min_value=0.0, value=20.0)
     temperature = st.number_input("Temperature (°C)", min_value=30.0, max_value=45.0, value=37.0)
-    wbc_count = st.number_input("WBC Count", min_value=0.0, value=8000.0)
+    wbc_count = st.number_input("WBC Count", min_value=0.0, value=12.0)
 
 with col2:
     lactate_level = st.number_input("Lactate Level", min_value=0.0, value=1.5)
@@ -38,8 +38,10 @@ if st.button("🔎 Predict Sepsis Risk"):
     }
 
     try:
-        # panggil API FastAPI lokal dalam container
-        response = requests.post("http://localhost:8000/predict", json=payload)
+        API_URL = "https://jamils-sepsis-fastapi.hf.space/predict"
+
+        with st.spinner("Menghubungi model..."):
+            response = requests.post(API_URL, json=payload, timeout=30)
 
         if response.status_code == 200:
             result = response.json()
@@ -54,10 +56,12 @@ if st.button("🔎 Predict Sepsis Risk"):
             else:
                 st.success("✅ LOW RISK of Sepsis")
 
-            st.metric("Risk Probability", f"{prob:.2f}")
+            st.metric("Risk Probability", f"{prob:.2%}")
 
         else:
-            st.error("API error: check logs")
+            st.error(f"API error {response.status_code}")
+            st.text(response.text)
 
     except Exception as e:
-        st.error(f"Connection error: {e}")
+        st.error("Tidak bisa terhubung ke API")
+        st.text(str(e))
