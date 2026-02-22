@@ -5,6 +5,7 @@ Proyek ini menyediakan sistem prediksi risiko sepsis berbasis machine learning y
 * **FastAPI backend** untuk layanan prediksi model
 * **Streamlit frontend** sebagai antarmuka pengguna
 * Model ensemble tersimpan dalam file artefak `.pkl`
+* Notebook pemodelan tersedia di Google Colab
 
 ---
 
@@ -23,6 +24,22 @@ Proyek ini menyediakan sistem prediksi risiko sepsis berbasis machine learning y
 └── src/
     └── streamlit_app.py    # Streamlit frontend UI
 ```
+
+---
+
+## 🧪 Notebook Pemodelan (Training Model)
+
+Proses eksplorasi data, preprocessing, training model, dan pembuatan ensemble dilakukan di Google Colab:
+
+🔗 https://colab.research.google.com/drive/1X34Fsj9HA3cQZk7O871qBqjnQ5kEmJid?usp=sharing
+
+Notebook ini mencakup:
+
+* Data preprocessing & feature selection
+* Training Random Forest, SVC, dan Naive Bayes
+* Evaluasi performa model
+* Perhitungan bobot ensemble
+* Export artefak model `.pkl`
 
 ---
 
@@ -74,7 +91,7 @@ Keterangan:
 
 Aplikasi frontend yang sudah dideploy dapat diakses di:
 
-https://huggingface.co/spaces/jamils/sepsis_app_detection
+🔗 https://huggingface.co/spaces/jamils/sepsis_app_detection
 
 Fitur aplikasi:
 
@@ -98,7 +115,7 @@ pip install -r requirements.txt
 uvicorn app:app --reload --port 8000
 ```
 
-Akses docs:
+Docs lokal:
 
 ```
 http://localhost:8000/docs
@@ -128,7 +145,8 @@ Prediksi akhir dihitung menggunakan **weighted probability averaging** untuk men
 
 Proyek ini menunjukkan implementasi end-to-end machine learning deployment meliputi:
 
-* Model training dan penyimpanan artefak
+* Eksplorasi & training model di notebook
+* Penyimpanan artefak model
 * Deployment API untuk inference
 * Integrasi frontend interaktif
 * Arsitektur backend–frontend terpisah
