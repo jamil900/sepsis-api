@@ -27,9 +27,10 @@ Sistem terdiri dari dua komponen terpisah:
 ├── Streamlit/
 │   ├── Dockerfile
 │   ├── requirements.txt
-│   ├── README.md
 │   └── src/
 │       └── streamlit_app.py
+│
+├── README.md
 ```
 
 ---
